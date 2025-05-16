@@ -1,15 +1,16 @@
-apiVersion: v1
-kind: Service
+apiVersion: v1                       # Specifies the API version for the Service resource
+kind: Service                        # Declares that this is a Service object
 metadata:
-  name: products-api
+  name: products-api                # Name of the Service (used by other resources to refer to it)
   labels:
-    kubernetes.courselabs.co: hackathon
-    app: widgetario
+    kubernetes.courselabs.co: hackathon  # Label to associate the service with the hackathon
+    app: widgetario                # Label to group related resources
+
 spec:
   ports:
-    - port: 80
-      targetPort: http
+    - port: 80                      # Port on which the service will be exposed inside the cluster
+      targetPort: http             # Port on the container to forward traffic to; 'http' refers to the named port in the Deployment
   selector:
-    app: widgetario
+    app: widgetario                # The service will route traffic to Pods with these labels
     component: products-api
-  type: ClusterIP
+  type: ClusterIP                  # Default service type; exposes the service on a cluster-internal IP only
