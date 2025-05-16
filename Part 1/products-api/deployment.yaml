@@ -1,25 +1,28 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1                   # Specifies the API version for the Deployment resource
+kind: Deployment                      # Declares that this is a Deployment object
 metadata:
-  name: products-api
+  name: products-api                  # Name of the Deployment
   labels:
-    app: widgetario
-    kubernetes.courselabs.co: hackathon
+    app: widgetario                   # Custom label to group related resources
+    kubernetes.courselabs.co: hackathon  # Label for CourseLabs Hackathon identification
+
 spec:
   selector:
-    matchLabels:
-        app: widgetario
-        component: products-api
-  template:
+    matchLabels:                      # Defines how this Deployment finds the Pods it manages
+      app: widgetario
+      component: products-api
+
+  template:                           # Template for the Pods managed by this Deployment
     metadata:
-      labels:
+      labels:                         # Labels that will be attached to the Pods
         app: widgetario
         component: products-api
-        hackathon: part-1
+        hackathon: part-1             # Label to identify the hackathon stage
+
     spec:
       containers:
-        - name: app
-          image: widgetario/products-api:21.03
+        - name: app                   # Name of the container inside the Pod
+          image: widgetario/products-api:21.03  # Docker image to run in the container
           ports:
-            - containerPort: 80
-              name: http
+            - containerPort: 80       # Port exposed by the container
+              name: http              # Named port for reference in services or network policies
